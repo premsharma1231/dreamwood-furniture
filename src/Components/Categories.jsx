@@ -11,6 +11,8 @@ import Bookshelf from "../assets/Images/Bookshelf.jpg";
 import StudyTblImg from "../assets/Images/StudyTblImg.jpg";
 import KitchenImg from "../assets/Images/KitchenImg.jpg";
 import ShoeRackImg from "../assets/Images/ShoeRackImg.jpg";
+import { useNavigate } from "react-router-dom";
+
 
 const categories = [
   { name: "SOFAS", img: SofaImage },
@@ -28,30 +30,40 @@ const categories = [
 ];
 
 function Categories() {
+  const navigate = useNavigate();
+
   return (
-    <div className="w-full py-16 px-10 bg-white">
+    <div className="w-full py-12 sm:py-14 md:py-16 px-4 sm:px-6 md:px-10 bg-[#F8F5F2]">
 
       {/* Heading */}
-      <h2 className="text-3xl font-semibold text-center mb-8">
-        Shop By Categories
-      </h2>
+      <div className="text-center mb-10 md:mb-12">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#4e342e] inline-block">
+          Shop By Categories
+          <span className="block w-16 md:w-20 h-1 bg-[#8B5A2B] mx-auto mt-3 rounded-full"></span>
+        </h1>
+      </div>
 
-
-      {/* Categories Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      {/* Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
 
         {categories.map((item, index) => (
-          <div key={index} className="text-center group cursor-pointer">
+          <div
+            key={index}
+            onClick={() => navigate(`/products?category=${item.name}`)}
+            className="group cursor-pointer"
+          >
 
-            <div className="overflow-hidden rounded-xl shadow-sm">
+            {/* Image Card */}
+            <div className="overflow-hidden rounded-xl shadow-md hover:shadow-xl transition duration-300">
               <img
                 src={item.img}
                 alt={item.name}
-                className="w-full h-80 object-cover group-hover:scale-110 transition duration-300"
+                className="w-full h-40 sm:h-52 md:h-64 lg:h-72 object-cover group-hover:scale-110 transition duration-500"
               />
             </div>
 
-            <p className="mt-3 text-xl font-semibold tracking-wide">
+            {/* Title */}
+            <p className="mt-2 sm:mt-3 text-sm sm:text-base md:text-lg font-semibold text-center tracking-wide text-[#4e342e] group-hover:text-[#8B5A2B] transition">
               {item.name}
             </p>
 

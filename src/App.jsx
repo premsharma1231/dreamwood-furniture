@@ -1,46 +1,60 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import './App.css'
 import Navbar from './Components/Navbar'
-import Product from './Components/Product'
+import Products from './Components/Products'
 import Categories from './Components/Categories'
 import CarouselHome from './Components/CarouselHome'
 import About from './Components/About'
 import Contact from './Components/Contact'
 import Footer from './Components/Footer'
+import Admin from "./Components/Admin";
+import Loader from "./Components/Loader";
 
 
-function App() {
+// 🔥 Separate component (IMPORTANT)
+function AppContent() {
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500); // ⏱️ 0.5 sec delay
+
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
 
   return (
     <>
-      {/* <Navbar/>
-      <CarouselHome/>
-      <Product/>
-      <Categories/>
-      <About/>
-      <Contact/> */}
-<BrowserRouter>
+      {loading && <Loader />}
 
-<Navbar/>
+      <Navbar />
 
-<Routes>
+      <Routes>
+        <Route path="/" element={<CarouselHome />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
 
-<Route path="/" element={<CarouselHome/>}/>
-<Route path="/products" element={<Product/>}/>
-<Route path="/about" element={<About/>}/>
-<Route path="/contact" element={<Contact/>}/>
-
-</Routes>
-
-<Footer/>
-
-</BrowserRouter>
-
+      <Footer />
     </>
-  )
+  );
+}
+
+
+// 🔥 Main App
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  );
 }
 
 export default App;
