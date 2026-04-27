@@ -13,7 +13,8 @@ import KitchenImg from "../assets/Images/KitchenImg.jpg";
 import ShoeRackImg from "../assets/Images/ShoeRackImg.jpg";
 import { useNavigate } from "react-router-dom";
 
-
+ {/* MACHINERY*/}
+    {/* MACHINERY*/}
 const categories = [
   { name: "SOFAS", img: SofaImage },
   { name: "BEDS", img: BedImage },

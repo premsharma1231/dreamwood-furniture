@@ -302,6 +302,9 @@ const handleLoginChange = (e) => {
                 </div>
               </div>
 
+               {/* MACHINERY*/}
+    {/* MACHINERY*/}
+
               <button
                 onClick={() => handleDelete(item._id)}
                 className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"

@@ -81,7 +81,9 @@ function About() {
 
   </div>
 
-  {/* MACHINERY */}
+  {/* MACHINERY*/}
+    {/* MACHINERY*/}
+
   <div className="text-center mb-10 md:mb-12">
     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#4e342e]">
       Machineries We Use
