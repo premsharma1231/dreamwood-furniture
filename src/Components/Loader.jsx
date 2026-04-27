@@ -16,5 +16,6 @@ function Loader() {
     </div>
   );
 }
+// temporary comment add kar
 
 export default Loader;
