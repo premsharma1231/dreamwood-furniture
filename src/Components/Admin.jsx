@@ -44,22 +44,26 @@ function Admin() {
   }, []);
 
   // 🔐 LOGIN FUNCTION
-  const handleLogin = (e) => {
-    e.preventDefault();
+const handleLogin = async (e) => {
+  e.preventDefault();
 
-    const adminEmail = "premsharma786zx@gmail.com";
-    const adminPassword = "QAZQAZqaz11!!";
+  const res = await fetch("https://dreamwood-furniture.onrender.com/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(loginData),
+  });
 
-    if (
-      loginData.email === adminEmail &&
-      loginData.password === adminPassword
-    ) {
-      setIsLoggedIn(true);
-      localStorage.setItem("admin", "true");
-    } else {
-      alert("Wrong credentials ❌");
-    }
-  };
+  const data = await res.json();
+
+  if (data.success) {
+    setIsLoggedIn(true);
+    localStorage.setItem("admin", "true");
+  } else {
+    alert("Wrong credentials ❌");
+  }
+};
 
   const handleLoginChange = (e) => {
     setLoginData({
@@ -78,7 +82,7 @@ function Admin() {
   const fetchProducts = () => {
     setLoading(true);
 
-    fetch("http://localhost:5000/api/products")
+    fetch("https://dreamwood-furniture.onrender.com/api/products")
       .then(res => res.json())
       .then(data => {
         setProducts(data);
@@ -102,7 +106,7 @@ function Admin() {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/products/${id}`, {
+      const res = await fetch(`https://dreamwood-furniture.onrender.com/api/products${id}`, {
         method: "DELETE",
       });
 
@@ -128,7 +132,7 @@ function Admin() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/products", {
+      const res = await fetch("https://dreamwood-furniture.onrender.com/api/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
