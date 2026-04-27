@@ -12,7 +12,7 @@ function Products() {
   const selectedCategory = queryParams.get("category");
 
 useEffect(() => {
-  let url = "http://localhost:5000/api/products";
+  let url = "https://dreamwood-furniture.onrender.com/api/products";
 
   if (selectedCategory) {
     url += `?category=${selectedCategory}`;
