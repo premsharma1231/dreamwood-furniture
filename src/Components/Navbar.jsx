@@ -91,7 +91,7 @@ return (
         <Phone size={16}/>
       </a>
 
-      <a href="mailto:dreamwoodfurniture@gmail.com" className="p-2 bg-white text-[#4e342e] rounded-full">
+      <a href="mailto:info@dreamwoodfurniture.in" className="p-2 bg-white text-[#4e342e] rounded-full">
         <Mail size={16}/>
       </a>
 
@@ -136,7 +136,7 @@ return (
         <Phone size={16}/>
       </a>
 
-      <a href="mailto:dreamwoodfurniture@gmail.com" className="p-2 bg-white text-[#4e342e] rounded-full hover:scale-110 transition">
+      <a href="mailto:info@dreamwoodfurniture.in" className="p-2 bg-white text-[#4e342e] rounded-full hover:scale-110 transition">
         <Mail size={16}/>
       </a>
 

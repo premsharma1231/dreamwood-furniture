@@ -32,7 +32,7 @@ className="p-2 bg-white text-[#4e342e] rounded-full hover:scale-110 transition">
 <Phone size={16}/>
 </a>
 
-<a href="mailto:dreamwoodfurniture@gmail.com?subject=Furniture Inquiry"
+<a href="mailto:info@dreamwoodfurniture.in?subject=Furniture Inquiry"
 className="p-2 bg-white text-[#4e342e] rounded-full hover:scale-110 transition">
 <Mail size={16}/>
 </a>
