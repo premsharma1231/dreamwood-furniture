@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-function Admin() {
 
+function Admin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   // 🔐 LOGIN STATE
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginData, setLoginData] = useState({
@@ -47,25 +49,24 @@ function Admin() {
 const handleLogin = async (e) => {
   e.preventDefault();
 
-  const res = await fetch("https://dreamwood-furniture.onrender.com/api/auth/login", {
+  const res = await fetch("https://dreamwood-furniture.onrender.com/api/admin/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(loginData),
+    body: JSON.stringify({ email, password }),
   });
 
   const data = await res.json();
 
   if (data.success) {
-    setIsLoggedIn(true);
-    localStorage.setItem("admin", "true");
+    alert("Login success");
   } else {
-    alert("Wrong credentials ❌");
+    alert("Invalid credentials");
   }
 };
 
-  const handleLoginChange = (e) => {
+const handleLoginChange = (e) => {
     setLoginData({
       ...loginData,
       [e.target.name]: e.target.value,
@@ -174,7 +175,7 @@ const handleLogin = async (e) => {
             type="email"
             name="email"
             placeholder="Email"
-            value={loginData.email}
+            value={email}
             onChange={handleLoginChange}
             className="w-full mb-4 p-2 border rounded"
             required
@@ -184,7 +185,7 @@ const handleLogin = async (e) => {
             type="password"
             name="password"
             placeholder="Password"
-            value={loginData.password}
+            value={password}
             onChange={handleLoginChange}
             className="w-full mb-4 p-2 border rounded"
             required
