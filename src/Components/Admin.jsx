@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-
 function Admin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   // 🔐 LOGIN STATE
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loginData, setLoginData] = useState({
-    email: "",
-    password: ""
-  });
 
   // 📦 PRODUCT STATES
   const [products, setProducts] = useState([]);
@@ -46,31 +42,26 @@ function Admin() {
   }, []);
 
   // 🔐 LOGIN FUNCTION
-const handleLogin = async (e) => {
-  e.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-  const res = await fetch("https://dreamwood-furniture.onrender.com/api/admin/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password }),
-  });
-
-  const data = await res.json();
-
-  if (data.success) {
-    alert("Login success");
-  } else {
-    alert("Invalid credentials");
-  }
-};
-
-const handleLoginChange = (e) => {
-    setLoginData({
-      ...loginData,
-      [e.target.name]: e.target.value,
+    const res = await fetch("https://dreamwood-furniture.onrender.com/api/admin/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
     });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Login success");
+      setIsLoggedIn(true);
+      localStorage.setItem("admin", "true");
+    } else {
+      alert("Invalid credentials");
+    }
   };
 
   // 🔓 LOGOUT
@@ -107,7 +98,7 @@ const handleLoginChange = (e) => {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`https://dreamwood-furniture.onrender.com/api/products${id}`, {
+      const res = await fetch(`https://dreamwood-furniture.onrender.com/api/products/${id}`, {
         method: "DELETE",
       });
 
@@ -173,20 +164,18 @@ const handleLoginChange = (e) => {
 
           <input
             type="email"
-            name="email"
             placeholder="Email"
             value={email}
-            onChange={handleLoginChange}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full mb-4 p-2 border rounded"
             required
           />
 
           <input
             type="password"
-            name="password"
             placeholder="Password"
             value={password}
-            onChange={handleLoginChange}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full mb-4 p-2 border rounded"
             required
           />
@@ -206,7 +195,6 @@ const handleLoginChange = (e) => {
   return (
     <div className="p-10 bg-[#F8F5F2] min-h-screen">
 
-      {/* HEADER */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Admin Panel</h1>
 
@@ -218,7 +206,6 @@ const handleLoginChange = (e) => {
         </button>
       </div>
 
-      {/* FORM */}
       <form
         onSubmit={handleSubmit}
         className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md"
@@ -274,7 +261,6 @@ const handleLoginChange = (e) => {
         </button>
       </form>
 
-      {/* PRODUCT LIST */}
       <div className="mt-10">
         <h2 className="text-xl font-bold mb-4">All Products</h2>
 
@@ -301,9 +287,6 @@ const handleLoginChange = (e) => {
                   </p>
                 </div>
               </div>
-
-               {/* MACHINERY*/}
-    {/* MACHINERY*/}
 
               <button
                 onClick={() => handleDelete(item._id)}
