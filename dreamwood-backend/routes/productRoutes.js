@@ -1,6 +1,7 @@
-const express = require("express");
+import express from "express";
+import Product from "../models/Product";
+
 const router = express.Router();
-const Product = require("../models/Product");
 
 // 👉 GET all products
 router.get("/", async (req, res) => {
@@ -11,7 +12,7 @@ router.get("/", async (req, res) => {
 
     if (category) {
       products = await Product.find({
-        category: { $regex: new RegExp(category, "i") } // case-insensitive
+        category: { $regex: new RegExp(category, "i") }
       });
     } else {
       products = await Product.find();
@@ -22,14 +23,19 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: "Server Error" });
   }
 });
+
 // 👉 ADD product
 router.post("/", async (req, res) => {
-  const newProduct = new Product(req.body);
-  await newProduct.save();
-  res.json(newProduct);
+  try {
+    const newProduct = new Product(req.body);
+    await newProduct.save();
+    res.json(newProduct);
+  } catch (error) {
+    res.status(500).json({ error: "Error adding product" });
+  }
 });
 
-// DELETE product
+// 👉 DELETE product
 router.delete("/:id", async (req, res) => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
@@ -44,4 +50,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
