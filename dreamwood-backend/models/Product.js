@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
   material: {
     type: String,
     default: "Wood",
-  },
+  },  
 
   isCustomizable: {
     type: Boolean,
