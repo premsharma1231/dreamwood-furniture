@@ -45,7 +45,7 @@ function Admin() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("https://dreamwood-furniture.onrender.com/api/admin/login", {
+    const res = await fetch("https://dreamwood-furniture.onrender.com/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
