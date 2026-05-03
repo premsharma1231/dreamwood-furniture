@@ -4,6 +4,37 @@
   padding: 0;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes floatRotate {
+  0% {
+    transform: rotate(90deg) translateY(0px);
+  }
+  50% {
+    transform: rotate(180deg) translateY(0px);
+  }
+  100% {
+    transform: rotate(360deg) translateY(0px);
+  }
+}
+
+.animate-floatRotate {
+  animation: floatRotate 2s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

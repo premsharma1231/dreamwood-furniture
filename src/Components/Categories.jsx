@@ -59,7 +59,7 @@ function Categories() {
               <img
                 src={item.img}
                 alt={item.name}
-                className="w-full h-40 sm:h-52 md:h-64 lg:h-72 object-cover group-hover:scale-110 transition duration-500"
+                className="w-full h-40 sm:h-52 md:h-64 lg:h-80 object-cover group-hover:scale-110 transition duration-500"
               />
             </div>
 

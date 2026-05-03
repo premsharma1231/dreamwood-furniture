@@ -123,7 +123,7 @@ return(
       href={item.link}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative bg-white p-6 md:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 text-center hover:-translate-y-2 border border-transparent hover:border-[#4e342e]"
+      className="group relative bg-white p-6 md:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 text-center hover:-translate-y-1 border border-transparent hover:border-[#4e342e]"
     >
 
       {/* ICON */}
@@ -142,7 +142,7 @@ return(
       </p>
 
       {/* SUBTLE LINE EFFECT */}
-      <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#4e342e] group-hover:w-full transition-all duration-300"></span>
+      {/* <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#4e342e] group-hover:w-full transition-all duration-300"></span> */}
 
     </a>
   ))}

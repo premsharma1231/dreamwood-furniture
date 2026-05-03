@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { FiPhone } from "react-icons/fi";
+import { FiPhone, FiMessageCircle } from "react-icons/fi";
 import { useLocation } from "react-router-dom";
+
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -10,6 +11,20 @@ function Products() {
 
   const queryParams = new URLSearchParams(location.search);
   const selectedCategory = queryParams.get("category");
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+  });
+
+  const openModal = (product) => {
+  setSelectedProduct(product);
+  setShowModal(true);
+};
+
 
 useEffect(() => {
   let url = "https://dreamwood-furniture.onrender.com/api/products";
@@ -47,6 +62,29 @@ useEffect(() => {
     return cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase();
   };
 
+  const handleSubmit = async () => {
+  const res = await fetch("https://dreamwood-furniture.onrender.com/api/quotation", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ...formData,
+      productName: selectedProduct.name,
+      productLink: window.location.href,
+    }),
+  });
+
+  const data = await res.json();
+
+  if (data.success) {
+    alert("Request sent successfully ✅");
+    setShowModal(false);
+  } else {
+    alert("Something went wrong ❌");
+  }
+};
+
  return (
   <div className="px-4 sm:px-6 md:px-10 py-8 md:py-10 bg-[#F8F5F2] min-h-screen">
 
@@ -83,7 +121,7 @@ useEffect(() => {
           return (
             <div
               key={item._id}
-              className="bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+              className="bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl"
             >
 
               {/* Image */}
@@ -94,7 +132,7 @@ useEffect(() => {
                   onError={(e) => {
                     e.target.src = "/images/default.jpg";
                   }}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  className="w-full h-full transition-transform duration-500 hover:scale-110"
                 />
               </div>
 
@@ -113,15 +151,30 @@ useEffect(() => {
                 </p>
 
                 {/* Call Button */}
+
+                <div className="flex justify-between">
+
                 <a
                   href="tel:+919879595544"
-                  className="mt-4 sm:mt-5 flex items-center justify-center gap-2 bg-gradient-to-r from-[#4e342e] to-[#6d4c41] text-white px-4 py-2 rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
-                >
+                  className="mt-4 sm:mt-5 flex items-center justify-center gap-2 w-52 bg-gradient-to-r from-[#4e342e] to-[#6d4c41] text-white px-4 py-2 rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
+                  >
                   <FiPhone className="text-white text-base sm:text-lg" />
                   <span className="text-xs sm:text-sm font-medium">
-                    Call for updated pricing
+                    Call for pricing!
+                  </span>
+                  
+                </a>
+
+                <a
+                  onClick={() => openModal(item)}
+                  className="mt-4 sm:mt-5 flex items-center justify-center gap-2 w-52 bg-gradient-to-r from-[#4e342e] to-[#6d4c41] text-white px-4 py-2 rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
+                  >
+                  <FiPhone className="text-white text-base sm:text-lg" />
+                  <span className="text-xs sm:text-sm font-medium">
+                    Request Quotation
                   </span>
                 </a>
+                </div>
 
                 {/* Small text */}
                 <p className="text-[10px] sm:text-xs text-gray-400 mt-2 text-center">
@@ -135,8 +188,82 @@ useEffect(() => {
 
       </div>
     )}
+
+{showModal && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 transition-all duration-300">
+
+    {/* Modal Box */}
+    <div className="bg-white p-6 rounded-xl w-[90%] max-w-md relative transform transition-all duration-300 scale-95 animate-[fadeIn_0.3s_ease-out_forwards]">
+
+      {/* ❌ Close Button (Top Right) */}
+      <button
+        onClick={() => setShowModal(false)}
+        className="absolute top-3 right-3 text-gray-500 hover:text-black text-xl font-bold"
+      >
+        ✕
+      </button>
+<h2 className="text-xl font-bold mb-3">
+  Requesting Quote For:
+</h2>
+
+<div className="flex items-center gap-3 mb-4 border p-3 rounded-lg bg-gray-50">
+  
+  <img
+    src={selectedProduct?.image}
+    alt="product"
+    className="w-16 h-16 object-cover rounded"
+  />
+
+  <div>
+    <p className="font-semibold text-gray-800">
+      {selectedProduct?.name}
+    </p>
+
+    <p className="text-xs text-gray-500">
+      {selectedProduct?.category}
+    </p>
   </div>
+
+</div>
+
+      <input
+        type="text"
+        placeholder="Full Name"
+        className="w-full border p-2 mb-3 rounded"  
+        onChange={(e) => setFormData({...formData, name: e.target.value})}
+      />
+
+      <input
+        type="text"
+        placeholder="Mobile Number"
+        className="w-full border p-2 mb-3 rounded"
+        onChange={(e) => setFormData({...formData, phone: e.target.value})}
+      />
+
+      <input
+        type="email"
+        placeholder="Email Address"
+        className="w-full border p-2 mb-3 rounded"
+        onChange={(e) => setFormData({...formData, email: e.target.value})}
+      />
+
+      <button
+        onClick={handleSubmit}
+        className="bg-[#4e342e] text-white px-4 py-2 rounded w-full mt-3 hover:scale-105 transition"
+      >
+        Send
+      </button>
+
+    </div>
+  </div>
+)}
+
+  </div>
+
+
+
 );
+
 }
 
 export default Products;

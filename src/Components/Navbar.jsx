@@ -15,12 +15,39 @@ return (
 <div className="flex items-center justify-between px-4 sm:px-6 md:px-10 py-3">
 
   {/* LOGO */}
-  <NavLink
-    to="/"
-    className="text-xl sm:text-2xl md:text-3xl font-bold font-serif tracking-wide bg-gradient-to-b from-[#f5deb3] to-[#c8a165] bg-clip-text text-transparent"
-  >
-    DREAM WOOD
-  </NavLink>
+<NavLink to="/" className="flex flex-col items-start leading-tight group">
+
+  {/* LOGO */}
+  <div className="flex items-center gap-1 sm:gap-2">
+
+    {/* Left Icon */}
+    <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 
+      -ml-2 sm:-ml-3 md:-ml-4 
+      mr-2 sm:mr-3 
+      bg-gradient-to-br from-[#C69C6D] to-[#8B5A2B] 
+      rounded-sm shadow-md 
+      animate-floatRotate">
+    </div>
+
+    {/* Text */}
+    <span className="
+      text-lg sm:text-xl md:text-3xl 
+      font-serif 
+      tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.25em] 
+      font-semibold
+      whitespace-nowrap
+    ">
+      <span className="bg-gradient-to-r from-[#F5E6D3] via-[#C69C6D] to-[#8B5A2B] bg-clip-text text-transparent">
+        DREAM
+      </span>{" "}
+      <span className="bg-gradient-to-r from-[#F5E6D3] via-[#C69C6D] to-[#8B5A2B] bg-clip-text text-transparent">
+        WOOD
+      </span>
+    </span>
+
+  </div>
+
+</NavLink>
 
   {/* DESKTOP MENU */}
   <ul className="hidden lg:flex items-center gap-10 font-serif">
